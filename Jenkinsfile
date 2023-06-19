@@ -3,6 +3,7 @@ pipeline {
 	environment {
 		NAME = "portfv1"
 		PORT="9034"
+		CI = false
 	}
     stages {
         stage('Build') {
