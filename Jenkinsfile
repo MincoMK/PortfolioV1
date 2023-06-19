@@ -22,11 +22,10 @@ pipeline {
         stage("Purge") {
             steps {
                 echo "Purging..."
-				sh "docker rm ${env.NAME} -f || true"
                 sh "docker ps --format \"{{.Names}}\" | grep ${env.NAME} | tee \\>\\(xargs --no-run-if-empty docker stop\\) \\>\\(xargs --no-run-if-empty docker rm\\) || true"
 				sh "docker container prune"
                 sh 'docker ps -q -f status=exited | xargs --no-run-if-empty docker rm -f'
-                sh "docker rm ${env.NAME} -f"
+                sh "docker rm ${env.NAME} -f || true"
                 sh 'docker images -q -f dangling=true | xargs --no-run-if-empty docker rmi -f'
                 sh 'docker volume ls -qf dangling=true | xargs -r docker volume rm'
                 sh 'docker rm `docker ps --no-trunc -aq -f status=exited` || true'

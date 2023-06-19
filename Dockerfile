@@ -7,4 +7,4 @@ ENV PORT=9034
 ENV NODE_ENV=production
 ENV VIRTUAL_HOST=mincomk.com
 
-CMD ["serve", "-s", "build", "-l", "0.0.0.0:9034"]
+CMD ["serve", "-s", "build", "-l", "tcp://0.0.0.0:9034"]
