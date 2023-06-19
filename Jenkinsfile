@@ -8,7 +8,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building...'
-                sh "npm install --save-dev"
+                sh "npm install --save-dev --legacy-peer-deps"
                 sh "npm run build"
             }
         }
