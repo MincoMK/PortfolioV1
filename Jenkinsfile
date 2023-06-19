@@ -21,7 +21,7 @@ pipeline {
         stage("Purge") {
             steps {
                 echo "Purging..."
-                sh "docker ps --format "{{.Names}}" | grep ${env.NAME} | tee \\>\\(xargs --no-run-if-empty docker stop\\) \\>\\(xargs --no-run-if-empty docker rm\\) || true"
+                sh "docker ps --format \"{{.Names}}\" | grep ${env.NAME} | tee \\>\\(xargs --no-run-if-empty docker stop\\) \\>\\(xargs --no-run-if-empty docker rm\\) || true"
 				sh "docker container prune"
                 sh 'docker ps -q -f status=exited | xargs --no-run-if-empty docker rm -f'
                 sh "docker rm ${env.NAME} -f"
