@@ -39,6 +39,15 @@ scrollbar-width: none;
 }
 `;
 
+const MobileInput = styled.input`
+width: 0;
+height: 0;
+opacity: 0;
+position: absolute;
+top: 0;
+left: 0;
+`
+
 const Red = styled.span`
 color: #ff5555;
 `;
@@ -84,13 +93,15 @@ export default function Terminal() {
 			setContent(content + e.key)
 			text += e.key
 		}
+		setTimeout(() => {
+			ttRef.current?.scrollTo(0, ttRef.current?.scrollHeight)
+		}, 50);
 	}
 
 	async function execute() {
 		setEditable(false)
 		addHistory(content)
 		const t = text.trim()
-		ttRef.current?.scrollTo(0, ttRef.current?.scrollHeight)
 		text = ''
 		if (t == 'start') {
 			addHistory(minco);
@@ -190,6 +201,10 @@ export default function Terminal() {
 		}
 		setContent('$ ')
 		setEditable(true)
+		console.log(ttRef.current);
+		setTimeout(() => {
+			ttRef.current?.scrollTo(0, ttRef.current?.scrollHeight)
+		}, 50);
 	}
 
 	function setContent(conte: string) {
@@ -258,11 +273,12 @@ export default function Terminal() {
 	`
 
 	function handleClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
-		// TODO focus
+		inputRef.current!.focus()
 	}
 
 	return (
 		<TerminalContainer>
+			<MobileInput ref={inputRef} />
 			<TerminalText ref={ttRef} onClick={handleClick}>
 				{historyState}
 				{contentState}
