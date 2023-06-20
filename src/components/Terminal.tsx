@@ -125,6 +125,7 @@ export default function Terminal() {
 				</ul>
 			</>)
 		} else if (t == 'logo') {
+			addHistory("Logo isn't implemented yet. Instead, showing the default react logo.")
 			addHistory(<>
 				<img src="/logo192.png" alt="logo" width="100" height="100" />
 			</>);
