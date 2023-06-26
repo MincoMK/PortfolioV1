@@ -35,7 +35,7 @@ pipeline {
             steps {
                 echo 'Deploying...'
                 sh "docker build -t ${NAME} ."
-                sh "docker run -d -p ${env.PORT}:${env.PORT} --name ${env.NAME} ${env.NAME}"
+                sh "docker run --restart -d -p ${env.PORT}:${env.PORT} --name ${env.NAME} ${env.NAME}"
             }
         }
     }
